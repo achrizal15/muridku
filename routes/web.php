@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +16,39 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', function () {
+        return Inertia::render('Dashboard');
+    })->name("dashboard");
+    Route::group(["prefix" => "master", "as" => "master."], function () {
+        Route::get("/role", [RoleController::class, "index"])->name("role");
+        Route::get("/role/add",[RoleController::class,"add"])->name("role.add");
+        Route::post("/role/{role}",[RoleController::class,"store"])->name("role.store");
+        // user
+        Route::get("/user", function () {
+            return Inertia::render('Dashboard');
+        })->name("user");
+        // siswa
+        Route::get("/siswa", function () {
+            return Inertia::render('Dashboard');
+        })->name("siswa");
+        // kelas
+        Route::get("/kelas", function () {
+            return Inertia::render('Dashboard');
+        })->name("kelas");
+        // mata-pelajaran
+        Route::get("/mata-pelajaran", function () {
+            return Inertia::render('Dashboard');
+        })->name("mata-pelajaran");
+        // tahun-ajaran
+        Route::get("/tahun-ajaran", function () {
+            return Inertia::render('Dashboard');
+        })->name("tahun-ajaran");
+    });
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
+require __DIR__ . '/auth.php';
