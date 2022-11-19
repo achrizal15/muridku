@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\KelasController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SiswaController;
 use  App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -36,13 +38,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::put("/user/{user}", [UserController::class, "put"])->name("user.put");
         Route::delete("/user/{user}", [UserController::class, "destroy"])->name("user.delete");
         // siswa
-        Route::get("/siswa", function () {
-            return Inertia::render('Dashboard');
-        })->name("siswa");
+        Route::get("/siswa", [SiswaController::class, "index"])->name("siswa");
+        Route::get("/siswa/add", [SiswaController::class, "add"])->name("siswa.add");
+        Route::post("/siswa", [SiswaController::class, "store"])->name("siswa.store");
+        Route::get("/siswa/edit/{siswa}", [SiswaController::class, "edit"])->name("siswa.edit");
+        Route::put("/siswa/{siswa}", [SiswaController::class, "put"])->name("siswa.put");
+        Route::delete("/siswa/{siswa}", [SiswaController::class, "destroy"])->name("siswa.delete");
         // kelas
-        Route::get("/kelas", function () {
-            return Inertia::render('Dashboard');
-        })->name("kelas");
+        Route::get("/kelas", [KelasController::class, "index"])->name("kelas");
+        Route::get("/kelas/add", [KelasController::class, "add"])->name("kelas.add");
+        Route::post("/kelas", [KelasController::class, "store"])->name("kelas.store");
+        Route::get("/kelas/edit/{kelas}", [KelasController::class, "edit"])->name("kelas.edit");
+        Route::put("/kelas/{kelas}", [KelasController::class, "put"])->name("kelas.put");
+        Route::delete("/kelas/{kelas}", [KelasController::class, "destroy"])->name("kelas.delete");
         // mata-pelajaran
         Route::get("/mata-pelajaran", function () {
             return Inertia::render('Dashboard');
