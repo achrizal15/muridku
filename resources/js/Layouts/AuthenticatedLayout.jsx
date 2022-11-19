@@ -5,7 +5,7 @@ import { NavLink, NavLinkGroup } from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link } from '@inertiajs/inertia-react';
 export default function Authenticated({ auth, header, children }) {
-    const userMenu=auth.user.role.menu_access
+    const userMenu = auth.user.role.menu_access
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
     const menu = [
         { title: "Dashboard", route: route('dashboard'), active: route().current('dashboard') },
@@ -22,7 +22,7 @@ export default function Authenticated({ auth, header, children }) {
     ]
     const MenuViewer = () => {
         return menu.map((item, key) => {
-            if(!userMenu.find((x)=>x.title==item.title)){
+            if (!userMenu.find((x) => x.title == item.title)) {
                 return false
             }
             if (item.submenu) {
@@ -54,9 +54,9 @@ export default function Authenticated({ auth, header, children }) {
 
                         <Dropdown.Content>
                             {item.submenu.map((sub, keysub) => {
-                                     if(!userMenu.find((x)=>x.title==sub.title)){
-                                        return false
-                                    }
+                                if (!userMenu.find((x) => x.title == sub.title)) {
+                                    return false
+                                }
                                 return (<Dropdown.Link href={sub.route} key={keysub}>{sub.title}</Dropdown.Link>)
                             })}
                         </Dropdown.Content>
