@@ -15,10 +15,26 @@ class RoleSeeder extends Seeder
    */
   public function run()
   {
-    Role::create([
-      "name" => "administrator",
-      "landing_page" => "/"
+    Role::insert([
+      [
+        "name" => "Administrator",
+        "landing_page" => "/",
+        "created_at"=>now()
+      ],
+      [
+        "name" => "Bidang Studi",
+        "landing_page" => "/",
+        "created_at"=>now()
+      ],
+      [
+        "name" => "Wali Kelas",
+        "landing_page" => "/",
+        "created_at"=>now()
+      ],
+      [
+        "name" => "Kepala Sekolah",
+        "landing_page" => "/",
+        "created_at"=>now()      ],
     ]);
-    
   }
 }

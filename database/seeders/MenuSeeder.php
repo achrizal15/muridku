@@ -76,9 +76,15 @@ class MenuSeeder extends Seeder
                 "route" => $value["route"],
                 "title" => $value["title"],
             ]);
-            RoleAccess::create([
-                "role_id"=>1,
-                "menu_id"=>$parent->id
+            RoleAccess::insert([
+                ["role_id"=>1,
+                "menu_id"=>$parent->id],
+                ["role_id"=>2,
+                "menu_id"=>$parent->id],
+                ["role_id"=>3,
+                "menu_id"=>$parent->id],
+                ["role_id"=>4,
+                "menu_id"=>$parent->id],
             ]);
             if (isset($value["submenu"])) {
                 foreach ($value["submenu"] as $sub) {
@@ -88,9 +94,15 @@ class MenuSeeder extends Seeder
                         "group_title" => $value["title"],
                         "group_id" => $parent->id
                     ]);
-                    RoleAccess::create([
-                        "role_id"=>1,
-                        "menu_id"=>$subParent->id
+                    RoleAccess::insert([
+                     [   "role_id"=>1,
+                        "menu_id"=>$subParent->id],
+                     [   "role_id"=>2,
+                        "menu_id"=>$subParent->id],
+                     [   "role_id"=>3,
+                        "menu_id"=>$subParent->id],
+                     [   "role_id"=>4,
+                        "menu_id"=>$subParent->id],
                     ]);
                 }
             }

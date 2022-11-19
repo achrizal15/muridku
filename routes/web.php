@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
+use  App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -28,9 +29,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::put("/role/{role}", [RoleController::class, "put"])->name("role.put");
         Route::delete("/role/{role}", [RoleController::class, "destroy"])->name("role.delete");
         // user
-        Route::get("/user", function () {
-            return Inertia::render('Dashboard');
-        })->name("user");
+        Route::get("/user", [UserController::class, "index"])->name("user");
+        Route::get("/user/add", [UserController::class, "add"])->name("user.add");
+        Route::post("/user", [UserController::class, "store"])->name("user.store");
+        Route::get("/user/edit/{user}", [UserController::class, "edit"])->name("user.edit");
+        Route::put("/user/{user}", [UserController::class, "put"])->name("user.put");
+        Route::delete("/user/{user}", [UserController::class, "destroy"])->name("user.delete");
         // siswa
         Route::get("/siswa", function () {
             return Inertia::render('Dashboard');
