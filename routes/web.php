@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\KelasController;
+use App\Http\Controllers\MataPelajaranController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SiswaController;
+use App\Http\Controllers\TahunAjaranController;
 use  App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -52,13 +54,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::put("/kelas/{kelas}", [KelasController::class, "put"])->name("kelas.put");
         Route::delete("/kelas/{kelas}", [KelasController::class, "destroy"])->name("kelas.delete");
         // mata-pelajaran
-        Route::get("/mata-pelajaran", function () {
-            return Inertia::render('Dashboard');
-        })->name("mata-pelajaran");
+        Route::get("/mata-pelajaran", [MataPelajaranController::class, "index"])->name("mata-pelajaran");
+        Route::get("/mata-pelajaran/add", [MataPelajaranController::class, "add"])->name("mata-pelajaran.add");
+        Route::post("/mata-pelajaran", [MataPelajaranController::class, "store"])->name("mata-pelajaran.store");
+        Route::get("/mata-pelajaran/edit/{mataPelajaran}", [MataPelajaranController::class, "edit"])->name("mata-pelajaran.edit");
+        Route::put("/mata-pelajaran/{mataPelajaran}", [MataPelajaranController::class, "put"])->name("mata-pelajaran.put");
+        Route::delete("/mata-pelajaran/{mataPelajaran}", [MataPelajaranController::class, "destroy"])->name("mata-pelajaran.delete");
         // tahun-ajaran
-        Route::get("/tahun-ajaran", function () {
-            return Inertia::render('Dashboard');
-        })->name("tahun-ajaran");
+        Route::get("/tahun-ajaran", [TahunAjaranController::class, "index"])->name("tahun-ajaran");
+        Route::get("/tahun-ajaran/add", [TahunAjaranController::class, "add"])->name("tahun-ajaran.add");
+        Route::post("/tahun-ajaran", [TahunAjaranController::class, "store"])->name("tahun-ajaran.store");
+        Route::get("/tahun-ajaran/edit/{tahunAjaran}", [TahunAjaranController::class, "edit"])->name("tahun-ajaran.edit");
+        Route::put("/tahun-ajaran/{tahunAjaran}", [TahunAjaranController::class, "put"])->name("tahun-ajaran.put");
+        Route::delete("/tahun-ajaran/{tahunAjaran}", [TahunAjaranController::class, "destroy"])->name("tahun-ajaran.delete");
+      
     });
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

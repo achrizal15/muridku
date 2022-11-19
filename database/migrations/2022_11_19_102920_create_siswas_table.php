@@ -16,6 +16,8 @@ return new class extends Migration
         Schema::create('siswas', function (Blueprint $table) {
             $table->id();
             $table->string("name");
+            $table->unsignedBigInteger("kelas_id")->foreignId();
+            $table->unsignedBigInteger("tahun_ajaran_id")->foreignId();
             $table->string("nis")->unique();
             $table->timestamps();
         });
