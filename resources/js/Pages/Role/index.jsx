@@ -3,11 +3,11 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import Authenticated from "@/Layouts/AuthenticatedLayout"
 import { Head } from '@inertiajs/inertia-react';
 import { Inertia } from "@inertiajs/inertia";
-import { Table, Pagination, Button } from "flowbite-react"
+import { Table, Pagination, Button, Alert } from "flowbite-react"
 import moment from "moment";
 import { useState } from "react";
 
-const Index = ({ auth, roles, request }) => {
+const Index = ({ auth, flash, roles }) => {
     const [currentPage, setCurrentPage] = useState(roles.current_page)
     const [search, setSearch] = useState("")
     const handleChangePage = (page) => {
@@ -15,7 +15,6 @@ const Index = ({ auth, roles, request }) => {
         Inertia.get(roles.path, { page, search })
     }
     const handleSearch = async value => {
-        // if (!value) return false
         setSearch(value)
         Inertia.get(route("master.role"), { search: value }, { preserveState: true })
     }
@@ -31,7 +30,7 @@ const Index = ({ auth, roles, request }) => {
                                 <div className="flex items-center">
 
                                     <DebounceInput
-                                    type="search"
+                                        type="search"
                                         className="px-2 rounded-md"
                                         placeholder="Search here..."
                                         minLength={1}
@@ -40,6 +39,18 @@ const Index = ({ auth, roles, request }) => {
                                     />
                                 </div>
                             </div>
+                            {/* {flash.message && ( */}
+                            {flash.message && (
+                                <Alert
+                                    className='mt-4'
+                                    color="success"
+                                >
+                                    <span>
+
+                                        {flash.message}
+                                    </span>
+                                </Alert>
+                            )}
                             <Table className="mt-4"><Table.Head>
                                 <Table.HeadCell>
                                     Name
@@ -70,22 +81,21 @@ const Index = ({ auth, roles, request }) => {
                                                 </Table.Cell>
 
                                                 <Table.Cell className='flex space-x-2'>
-                                                    <Button color="warning">
+                                                    {item.id != 1 && (<><Button color="warning" onClick={() => Inertia.get(route("master.role.edit",{ role: item.id }))}>
                                                         Edit
                                                     </Button>
-                                                    <Button color="failure">
+                                                    <Button color="failure" onClick={() => Inertia.delete(route("master.role.delete", { role: item.id }))}>
                                                         Delete
-                                                    </Button>
+                                                    </Button></>) }
                                                 </Table.Cell>
                                             </Table.Row>
                                         )
                                     })}
 
                                 </Table.Body></Table>
-                            {roles.total > 1 && <Pagination
-                                onPage
+                            {Math.ceil(roles.total / roles.per_page) > 1 && <Pagination
                                 currentPage={currentPage}
-                                totalPages={roles.total}
+                                totalPages={Math.ceil(roles.total / roles.per_page)}
                                 onPageChange={(page) => handleChangePage(page)}
                             />}
                         </section>

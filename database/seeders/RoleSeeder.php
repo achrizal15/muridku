@@ -17,7 +17,7 @@ class RoleSeeder extends Seeder
   {
     Role::create([
       "name" => "administrator",
-      "landing_page" => route("dashboard")
+      "landing_page" => "/"
     ]);
     
   }

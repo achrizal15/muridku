@@ -27,7 +27,7 @@ class MenuSeeder extends Seeder
             1 =>
             array(
                 'title' => 'Master',
-                'route' => 'http://127.0.0.1:8000/master/role',
+                'route' => '#',
                 'active' => true,
                 'submenu' =>
                 array(
