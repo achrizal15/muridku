@@ -3,10 +3,13 @@ import PrimaryButton from "@/Components/PrimaryButton"
 import Authenticated from "@/Layouts/AuthenticatedLayout"
 import { Transition } from "@headlessui/react"
 import { Head, useForm } from "@inertiajs/inertia-react"
-import { Label, Select, TextInput, Radio } from "flowbite-react"
-const Form = ({ auth,  siswa }) => {
+import { Label, TextInput } from "flowbite-react"
+import Select from 'react-select';
+const Form = ({ auth,  siswa,kelas,tahunAjaran }) => {
     const { data, setData, post, put, errors, recentlySuccessful } = useForm({
         name: siswa ? siswa.name : '',
+        kelas_id:siswa?siswa.kelas_id:'',
+        tahun_ajaran_id:siswa?siswa.tahun_ajaran_id:'',
     })
 
     const handleSubmit = (e) => {
@@ -42,7 +45,32 @@ const Form = ({ auth,  siswa }) => {
 
                                     <InputError className="mt-2" message={errors.name} />
                                 </div>
-                              
+                                <div>
+                                    <Label
+                                        htmlFor="kelas" value="Kelas" />
+                                <Select
+                                        className="basic-single"
+                                        classNamePrefix="select"
+                                        isSearchable={true}
+                                        name="kelas_id"
+                                        defaultValue={siswa ? { label: siswa.kelas.name, value: siswa.kelas.id } : []}
+                                        onChange={(e) => setData("kelas_id", e.value)}
+                                        options={[...kelas.map((item) => ({ label: item.name, value: item.id }))]}
+                                    />
+                                    </div>
+                                <div>
+                                    <Label
+                                        htmlFor="tahun_ajaran_id" value="Tahun Ajaran" />
+                                <Select
+                                        className="basic-single"
+                                        classNamePrefix="select"
+                                        isSearchable={true}
+                                        name="tahun_ajaran_id"
+                                        defaultValue={siswa ? { label: siswa.tahun_ajaran.name, value: siswa.tahun_ajaran.id } : []}
+                                        onChange={(e) => setData("tahun_ajaran_id", e.value)}
+                                        options={[...tahunAjaran.map((item) => ({ label: item.name, value: item.id }))]}
+                                    />
+                                    </div>
                                 <div className="flex items-center gap-4">
                                     <PrimaryButton >Save</PrimaryButton>
 

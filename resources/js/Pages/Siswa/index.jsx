@@ -51,6 +51,12 @@ const Index = ({ auth, flash, siswa }) => {
                                   Name
                                 </Table.HeadCell>
                                 <Table.HeadCell>
+                                  Kelas
+                                </Table.HeadCell>
+                                <Table.HeadCell>
+                                  Tahun Ajaran
+                                </Table.HeadCell>
+                                <Table.HeadCell>
                                     Created At
                                 </Table.HeadCell>
                                 <Table.HeadCell>
@@ -67,6 +73,12 @@ const Index = ({ auth, flash, siswa }) => {
                                                 </Table.Cell>
                                                 <Table.Cell>
                                                     {item.name}
+                                                </Table.Cell>
+                                                <Table.Cell>
+                                                    {item.kelas.name}
+                                                </Table.Cell>
+                                                <Table.Cell>
+                                                    {item.tahun_ajaran.name}
                                                 </Table.Cell>
                                                 <Table.Cell>
                                                     {moment(item.created_at).format("D MMMM YYYY")}

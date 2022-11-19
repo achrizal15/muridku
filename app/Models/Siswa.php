@@ -10,6 +10,12 @@ class Siswa extends Model
 {
     use HasFactory,AutoNumberTrait;
     protected $guarded=["id"];
+    public function kelas(){
+        return $this->belongsTo(Kelas::class,"kelas_id","id");
+    }
+    public function tahunAjaran(){
+        return $this->belongsTo(TahunAjaran::class,"tahun_ajaran_id");
+    }
     public function getAutoNumberOptions()
     {
         return [
