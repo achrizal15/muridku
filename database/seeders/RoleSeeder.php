@@ -18,22 +18,22 @@ class RoleSeeder extends Seeder
     Role::insert([
       [
         "name" => "Administrator",
-        "landing_page" => "/",
+        "landing_page" => route("dashboard"),
         "created_at"=>now()
       ],
       [
         "name" => "Bidang Studi",
-        "landing_page" => "/",
+        "landing_page" => route("dashboard"),
         "created_at"=>now()
       ],
       [
         "name" => "Wali Kelas",
-        "landing_page" => "/",
+        "landing_page" => route("dashboard"),
         "created_at"=>now()
       ],
       [
         "name" => "Kepala Sekolah",
-        "landing_page" => "/",
+        "landing_page" => route("dashboard"),
         "created_at"=>now()      ],
     ]);
   }
