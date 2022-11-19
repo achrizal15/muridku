@@ -10,8 +10,10 @@ class RoleController extends Controller
 {
     public function index()
     {
-        $roles = Role::orderBy("name", "ASC")->paginate()->withQueryString();
-        return Inertia::render("Role/index", ["roles" => $roles]);
+        $roles = Role::orderBy("name", "ASC")->where("name", "like", "%" . request("search") . "%")
+            ->paginate()->withQueryString();
+   
+        return Inertia::render("Role/index", ["roles" => $roles, "request" => request("search")]);
     }
     public function add()
     {
@@ -19,5 +21,6 @@ class RoleController extends Controller
     }
     public function store()
     {
+        return redirect(route("master.role.add"));
     }
 }

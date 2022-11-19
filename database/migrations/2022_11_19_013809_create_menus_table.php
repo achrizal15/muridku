@@ -13,10 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('role_accesses', function (Blueprint $table) {
+        Schema::create('menus', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("role_id")->foreign();
-            $table->unsignedBigInteger("menu_id")->foreign();
+            $table->text("route");
+            $table->text("title");
+            $table->text("group_title")->nullable();
+            $table->unsignedBigInteger("group_id")->nullable()->foreignId();
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('role_accesses');
+        Schema::dropIfExists('menus');
     }
 };

@@ -22,6 +22,9 @@
         "vite": "^3.0.0"
     },
     "dependencies": {
-        "moment": "^2.29.4"
+        "flowbite": "^1.5.4",
+        "flowbite-react": "^0.3.5",
+        "moment": "^2.29.4",
+        "react-debounce-input": "^3.3.0"
     }
 }

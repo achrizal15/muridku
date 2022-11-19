@@ -23,7 +23,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::group(["prefix" => "master", "as" => "master."], function () {
         Route::get("/role", [RoleController::class, "index"])->name("role");
         Route::get("/role/add",[RoleController::class,"add"])->name("role.add");
-        Route::post("/role/{role}",[RoleController::class,"store"])->name("role.store");
+        Route::post("/role",[RoleController::class,"store"])->name("role.store");
         // user
         Route::get("/user", function () {
             return Inertia::render('Dashboard');
