@@ -15,6 +15,10 @@ return new class extends Migration
     {
         Schema::create('nilais', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger("kelas_id")->nullable()->foreignId();
+            $table->unsignedBigInteger("mata_pelajaran_id")->nullable()->foreignId();
+            $table->unsignedBigInteger("tahun_ajaran_id")->nullable()->foreignId();
+            $table->enum("semester",["Semester 1","Semester 2"]);
             $table->timestamps();
         });
     }

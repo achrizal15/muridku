@@ -14,8 +14,9 @@ class SiswaController extends Controller
     public function index(Request $request)
     {
         $siswa = Siswa::orderBy("name", "ASC")
-        ->with(["tahunAjaran","kelas"])
+            ->with(["tahunAjaran", "kelas"])
             ->where("name", "like", "%" . $request->search . "%")
+            ->orWhere("nis", "like", "%" . $request->search . "%")
             ->orWhereHas("kelas", function ($query) use ($request) {
                 return $query->where("name", "like", "%" . $request->search . "%");
             })
@@ -36,11 +37,11 @@ class SiswaController extends Controller
     {
         $kelas = Kelas::orderBy("name", "ASC")->get();
         $tahunAjaran = TahunAjaran::orderBy("name", "ASC")->get();
-        return Inertia::render("Siswa/form", ["kelas" => $kelas, "tahunAjaran" => $tahunAjaran,"siswa"=>$siswa->load(["kelas","tahunAjaran"])]);
+        return Inertia::render("Siswa/form", ["kelas" => $kelas, "tahunAjaran" => $tahunAjaran, "siswa" => $siswa->load(["kelas", "tahunAjaran"])]);
     }
     public function destroy(Siswa $siswa)
     {
-        Penempatan::where("siswa_id",$siswa->id)->delete();
+        Penempatan::where("siswa_id", $siswa->id)->delete();
         $siswa->delete();
         return redirect(route("master.siswa"))->with("message", "Data has been deleted succesfully.");
     }
@@ -48,14 +49,14 @@ class SiswaController extends Controller
     {
         $validate = $request->validate([
             "name" => "required",
-            "kelas_id"=>"required",
-            "tahun_ajaran_id"=>"required"
+            "kelas_id" => "required",
+            "tahun_ajaran_id" => "required"
         ]);
-        $siswa =Siswa::create($validate);
+        $siswa = Siswa::create($validate);
         Penempatan::create([
-            "siswa_id"=>$siswa->id,
-            "kelas_id"=>$siswa->kelas_id,
-            "tahun_ajaran_id"=>$siswa->tahun_ajaran_id,
+            "siswa_id" => $siswa->id,
+            "kelas_id" => $siswa->kelas_id,
+            "tahun_ajaran_id" => $siswa->tahun_ajaran_id,
         ]);
         return redirect(route("master.siswa"))->with("message", "Data has been added.");
     }
@@ -63,14 +64,14 @@ class SiswaController extends Controller
     {
         $validate = $request->validate([
             "name" => "required",
-            "kelas_id"=>"required",
-            "tahun_ajaran_id"=>"required" 
+            "kelas_id" => "required",
+            "tahun_ajaran_id" => "required"
         ]);
         $siswa->update($validate);
-        $penempatan=Penempatan::latest()->where("siswa_id",$siswa->id)->first();
+        $penempatan = Penempatan::latest()->where("siswa_id", $siswa->id)->first();
         $penempatan->update([
-            "kelas_id"=>$siswa->kelas_id,
-            "tahun_ajaran_id"=>$siswa->tahun_ajaran_id,
+            "kelas_id" => $siswa->kelas_id,
+            "tahun_ajaran_id" => $siswa->tahun_ajaran_id,
         ]);
 
         return redirect(route("master.siswa"))->with("message", "Data has been updated.");

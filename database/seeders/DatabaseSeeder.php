@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\MataPelajaran;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -20,5 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call(MenuSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(TahunAjaranSeeder::class);
+        $this->call(KelasSeeder::class);
+        $this->call(MataPelajaranSeeder::class);
     }
 }

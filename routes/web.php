@@ -27,7 +27,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/', function () {
         return Inertia::render('Dashboard');
     })->name("dashboard");
-    Route::post("/migrate-menu",[RoleController::class,"migrateMenu"])->name("migrateMenu");
+    Route::post("/migrate-menu", [RoleController::class, "migrateMenu"])->name("migrateMenu");
     Route::group(["prefix" => "master", "as" => "master."], function () {
         Route::get("/role", [RoleController::class, "index"])->name("role");
         Route::get("/role/add", [RoleController::class, "add"])->name("role.add");
@@ -73,12 +73,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
     Route::group(["prefix" => "transaksi", "as" => "transaksi."], function () {
         // nilai
-        Route::get("/nilai", [NilaiController::class, "index"])->name("nilai");
-        Route::get("/nilai/add", [NilaiController::class, "add"])->name("nilai.add");
-        Route::post("/nilai", [NilaiController::class, "store"])->name("nilai.store");
-        Route::get("/nilai/edit/{nilai}", [NilaiController::class, "edit"])->name("nilai.edit");
-        Route::put("/nilai/{nilai}", [NilaiController::class, "put"])->name("nilai.put");
-        Route::delete("/nilai/{nilai}", [NilaiController::class, "destroy"])->name("nilai.delete");
+        Route::get("/input-nilai", [NilaiController::class, "add"])->name("input-nilai");
+        Route::get("/input-nilai/getSiswa", [NilaiController::class, "getSiswa"])->name("input-nilai.getSiswa");
+        Route::post("/input-nilai", [NilaiController::class, "store"])->name("input-nilai.store");
         // penempatan
         Route::get("/penempatan", [PenempatanController::class, "index"])->name("penempatan");
         Route::get("/penempatan/add", [PenempatanController::class, "add"])->name("penempatan.add");

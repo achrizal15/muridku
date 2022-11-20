@@ -15,6 +15,11 @@ return new class extends Migration
     {
         Schema::create('nilai_details', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger("siswa_id")->nullable()->foreignId();
+            $table->unsignedBigInteger("nilai_id")->nullable()->foreignId();
+            $table->integer("uts");
+            $table->integer("tugas");
+            $table->integer("uas");
             $table->timestamps();
         });
     }

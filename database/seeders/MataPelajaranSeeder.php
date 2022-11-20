@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\MataPelajaran;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -14,6 +15,10 @@ class MataPelajaranSeeder extends Seeder
      */
     public function run()
     {
-        //
+        MataPelajaran::create([
+            "Name"=>"Ipa",
+            "kkm"=>40,
+            "user_id"=>23
+        ]);
     }
 }

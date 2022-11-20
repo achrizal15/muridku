@@ -25,14 +25,14 @@ export default function Authenticated({ auth, header, children }) {
         {
             title: "Transaksi", route: "#", active: route().current('transaksi.*'), submenu: [
                 { title: "Penempatan", route: route("transaksi.penempatan"), active: route().current("transaksi.penempatan") },
-                { title: "Nilai", route: route("transaksi.nilai"), active: route().current("transaksi.nilai") },
+                { title: "Input Nilai", route: route("transaksi.input-nilai"), active: route().current("transaksi.input-nilai") },
             ]
         },
 
     ]
-
+  
     const MenuViewer = () => {
-
+        
         return menu.map((item, key) => {
             if (!userMenu.find((x) => x.title == item.title)) {
                 return false
@@ -91,7 +91,7 @@ export default function Authenticated({ auth, header, children }) {
                                     <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800" />
                                 </Link>
                             </div>
-                            <button hidden onClick={() => Inertia.post(route("migrateMenu"), { item: JSON.stringify(menu) })}>MigrateMenu</button>
+        <button  onClick={()=>Inertia.post(route("migrateMenu"),{item:JSON.stringify(menu)})}>MigrateMenu</button>
                             <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <MenuViewer />
                             </div>
