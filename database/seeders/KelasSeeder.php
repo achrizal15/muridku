@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Kelas;
+use App\Models\Penempatan;
 use App\Models\Siswa;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -1656,10 +1657,12 @@ class KelasSeeder extends Seeder
             $wali = User::where("name", "like", "%" . explode(" ",$item["Walikelas"])[0] . "%")->first();
             if (!$newKelas) {
                 $kelas = Kelas::create(["name" => $item["Kelas"], "user_id" => $wali?$wali->id:26]);
-                Siswa::create(["name" => $item["Nama"], "kelas_id" => $kelas->id, "tahun_ajaran_id" => 1]);
+                $siswa=Siswa::create(["name" => $item["Nama"], "kelas_id" => $kelas->id, "tahun_ajaran_id" => 1]);
+                Penempatan::create(["siswa_id"=>$siswa->id,"kelas_id"=>$kelas->id,"tahun_ajaran_id" => 1]);
                 continue;
             }
-            Siswa::create(["name"=>$item["Nama"],"kelas_id"=>$newKelas->id,"tahun_ajaran_id"=>1]);
+            $siswa=Siswa::create(["name"=>$item["Nama"],"kelas_id"=>$newKelas->id,"tahun_ajaran_id"=>1]);
+            Penempatan::create(["siswa_id"=>$siswa->id,"kelas_id"=>$newKelas->id,"tahun_ajaran_id" => 1]);
         }
         DB::commit();
     }

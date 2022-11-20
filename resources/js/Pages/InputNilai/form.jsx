@@ -15,13 +15,12 @@ const Form = ({ auth,flash, kelas, tahunAjaran, mataPelajaran, }) => {
     })
     const handleSubmit = (e) => {
         e.preventDefault();
-        post(route("transaksi.input-nilai.store"))
+        post(route("transaksi.input-nilai.store"),{preserveState:false})
     }
 
     const fetchSiswa = async () => {
         if (data.kelas_id == "" || data.tahun_ajaran_id == "") return false
         const query = `?kelas=${data.kelas_id}&thn=${data.tahun_ajaran_id}`
-        // console.log(2)
         const res = await fetch(`${route('transaksi.input-nilai.getSiswa')}${query}`).then(res => res.json())
         const nilai = res.map(e => ({
             id: e.id,
