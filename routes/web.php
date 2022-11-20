@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\MataPelajaranController;
+use App\Http\Controllers\NilaiController;
+use App\Http\Controllers\PenempatanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SiswaController;
@@ -25,6 +27,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/', function () {
         return Inertia::render('Dashboard');
     })->name("dashboard");
+    Route::post("/migrate-menu",[RoleController::class,"migrateMenu"])->name("migrateMenu");
     Route::group(["prefix" => "master", "as" => "master."], function () {
         Route::get("/role", [RoleController::class, "index"])->name("role");
         Route::get("/role/add", [RoleController::class, "add"])->name("role.add");
@@ -67,8 +70,24 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get("/tahun-ajaran/edit/{tahunAjaran}", [TahunAjaranController::class, "edit"])->name("tahun-ajaran.edit");
         Route::put("/tahun-ajaran/{tahunAjaran}", [TahunAjaranController::class, "put"])->name("tahun-ajaran.put");
         Route::delete("/tahun-ajaran/{tahunAjaran}", [TahunAjaranController::class, "destroy"])->name("tahun-ajaran.delete");
-      
     });
+    Route::group(["prefix" => "transaksi", "as" => "transaksi."], function () {
+        // nilai
+        Route::get("/nilai", [NilaiController::class, "index"])->name("nilai");
+        Route::get("/nilai/add", [NilaiController::class, "add"])->name("nilai.add");
+        Route::post("/nilai", [NilaiController::class, "store"])->name("nilai.store");
+        Route::get("/nilai/edit/{nilai}", [NilaiController::class, "edit"])->name("nilai.edit");
+        Route::put("/nilai/{nilai}", [NilaiController::class, "put"])->name("nilai.put");
+        Route::delete("/nilai/{nilai}", [NilaiController::class, "destroy"])->name("nilai.delete");
+        // penempatan
+        Route::get("/penempatan", [PenempatanController::class, "index"])->name("penempatan");
+        Route::get("/penempatan/add", [PenempatanController::class, "add"])->name("penempatan.add");
+        Route::post("/penempatan", [PenempatanController::class, "store"])->name("penempatan.store");
+        Route::get("/penempatan/edit/{penempatan}", [PenempatanController::class, "edit"])->name("penempatan.edit");
+        Route::put("/penempatan/{penempatan}", [PenempatanController::class, "put"])->name("penempatan.put");
+        Route::delete("/penempatan/{penempatan}", [PenempatanController::class, "destroy"])->name("penempatan.delete");
+    });
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

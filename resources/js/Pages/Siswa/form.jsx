@@ -5,11 +5,11 @@ import { Transition } from "@headlessui/react"
 import { Head, useForm } from "@inertiajs/inertia-react"
 import { Label, TextInput } from "flowbite-react"
 import Select from 'react-select';
-const Form = ({ auth,  siswa,kelas,tahunAjaran }) => {
+const Form = ({ auth, siswa, kelas, tahunAjaran }) => {
     const { data, setData, post, put, errors, recentlySuccessful } = useForm({
         name: siswa ? siswa.name : '',
-        kelas_id:siswa?siswa.kelas_id:'',
-        tahun_ajaran_id:siswa?siswa.tahun_ajaran_id:'',
+        kelas_id: siswa ? siswa.kelas_id : '',
+        tahun_ajaran_id: siswa ? siswa.tahun_ajaran_id : '',
     })
 
     const handleSubmit = (e) => {
@@ -48,7 +48,7 @@ const Form = ({ auth,  siswa,kelas,tahunAjaran }) => {
                                 <div>
                                     <Label
                                         htmlFor="kelas" value="Kelas" />
-                                <Select
+                                    <Select
                                         className="basic-single"
                                         classNamePrefix="select"
                                         isSearchable={true}
@@ -57,11 +57,12 @@ const Form = ({ auth,  siswa,kelas,tahunAjaran }) => {
                                         onChange={(e) => setData("kelas_id", e.value)}
                                         options={[...kelas.map((item) => ({ label: item.name, value: item.id }))]}
                                     />
-                                    </div>
+                                     <InputError className="mt-2" message={errors.kelas_id} />
+                                </div>
                                 <div>
                                     <Label
                                         htmlFor="tahun_ajaran_id" value="Tahun Ajaran" />
-                                <Select
+                                    <Select
                                         className="basic-single"
                                         classNamePrefix="select"
                                         isSearchable={true}
@@ -70,7 +71,8 @@ const Form = ({ auth,  siswa,kelas,tahunAjaran }) => {
                                         onChange={(e) => setData("tahun_ajaran_id", e.value)}
                                         options={[...tahunAjaran.map((item) => ({ label: item.name, value: item.id }))]}
                                     />
-                                    </div>
+                                     <InputError className="mt-2" message={errors.tahun_ajaran_id} />
+                                </div>
                                 <div className="flex items-center gap-4">
                                     <PrimaryButton >Save</PrimaryButton>
 

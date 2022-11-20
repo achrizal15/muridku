@@ -4,23 +4,35 @@ import Dropdown from '@/Components/Dropdown';
 import { NavLink, NavLinkGroup } from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link } from '@inertiajs/inertia-react';
+import { Inertia } from '@inertiajs/inertia';
 export default function Authenticated({ auth, header, children }) {
     const userMenu = auth.user.role.menu_access
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
     const menu = [
         { title: "Dashboard", route: route('dashboard'), active: route().current('dashboard') },
         {
-            title: "Master", route: route("master.role"), active: route().current('master.*'), submenu: [
+            title: "Master", route: "#", active: route().current('master.*'), submenu: [
                 { title: "Role", route: route("master.role"), active: route().current("master.role") },
                 { title: "User", route: route("master.user"), active: route().current("master.user") },
                 { title: "Siswa", route: route("master.siswa"), active: route().current("master.siswa") },
                 { title: "Kelas", route: route("master.kelas"), active: route().current("master.kelas") },
-                { title: "Mata Pelajaran", route: route("master.mata-pelajaran"), active: route().current("master.kelas") },
+                {
+                    title: "Mata Pelajaran", route: route("master.mata-pelajaran"), active: route().current("master.kelas")
+                },
                 { title: "Tahun Ajaran", route: route("master.tahun-ajaran"), active: route().current("master.kelas") },
             ]
         },
+        {
+            title: "Transaksi", route: "#", active: route().current('transaksi.*'), submenu: [
+                { title: "Penempatan", route: route("transaksi.penempatan"), active: route().current("transaksi.penempatan") },
+                { title: "Nilai", route: route("transaksi.nilai"), active: route().current("transaksi.nilai") },
+            ]
+        },
+
     ]
+
     const MenuViewer = () => {
+
         return menu.map((item, key) => {
             if (!userMenu.find((x) => x.title == item.title)) {
                 return false
@@ -79,7 +91,7 @@ export default function Authenticated({ auth, header, children }) {
                                     <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800" />
                                 </Link>
                             </div>
-
+                            <button hidden onClick={() => Inertia.post(route("migrateMenu"), { item: JSON.stringify(menu) })}>MigrateMenu</button>
                             <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <MenuViewer />
                             </div>

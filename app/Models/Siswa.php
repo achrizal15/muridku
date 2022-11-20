@@ -13,6 +13,9 @@ class Siswa extends Model
     public function kelas(){
         return $this->belongsTo(Kelas::class,"kelas_id","id");
     }
+    public function penempatan(){
+        return $this->hasMany(Penempatan::class);
+    }
     public function tahunAjaran(){
         return $this->belongsTo(TahunAjaran::class,"tahun_ajaran_id");
     }

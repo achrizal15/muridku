@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kelas;
+use App\Models\Penempatan;
 use App\Models\Siswa;
 use App\Models\TahunAjaran;
 use Illuminate\Http\Request;
@@ -39,6 +40,7 @@ class SiswaController extends Controller
     }
     public function destroy(Siswa $siswa)
     {
+        Penempatan::where("siswa_id",$siswa->id)->delete();
         $siswa->delete();
         return redirect(route("master.siswa"))->with("message", "Data has been deleted succesfully.");
     }
@@ -49,7 +51,12 @@ class SiswaController extends Controller
             "kelas_id"=>"required",
             "tahun_ajaran_id"=>"required"
         ]);
-        Siswa::create($validate);
+        $siswa =Siswa::create($validate);
+        Penempatan::create([
+            "siswa_id"=>$siswa->id,
+            "kelas_id"=>$siswa->kelas_id,
+            "tahun_ajaran_id"=>$siswa->tahun_ajaran_id,
+        ]);
         return redirect(route("master.siswa"))->with("message", "Data has been added.");
     }
     public function put(Request $request, Siswa $siswa)
@@ -60,6 +67,12 @@ class SiswaController extends Controller
             "tahun_ajaran_id"=>"required" 
         ]);
         $siswa->update($validate);
+        $penempatan=Penempatan::latest()->where("siswa_id",$siswa->id)->first();
+        $penempatan->update([
+            "kelas_id"=>$siswa->kelas_id,
+            "tahun_ajaran_id"=>$siswa->tahun_ajaran_id,
+        ]);
+
         return redirect(route("master.siswa"))->with("message", "Data has been updated.");
     }
 }

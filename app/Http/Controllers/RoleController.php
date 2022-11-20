@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Role;
 use App\Models\Menu;
+use App\Models\RoleAccess;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class RoleController extends Controller
@@ -14,6 +16,67 @@ class RoleController extends Controller
         $roles = Role::orderBy("name", "ASC")->where("name", "like", "%" . request("search") . "%")->paginate(10)->withQueryString();
         return Inertia::render("Role/index", ["roles" => $roles, "request" => request("search")]);
     }
+    public function migrateMenu(Request $request)
+    {
+        $menus = json_decode($request->item);
+        Menu::truncate();
+        DB::beginTransaction();
+        foreach ($menus as $value) {
+            $parent = Menu::create([
+                "route" => $value->route,
+                "title" => $value->title,
+            ]);
+            RoleAccess::insert([
+                [
+                    "role_id" => 1,
+                    "menu_id" => $parent->id
+                ],
+                [
+                    "role_id" => 2,
+                    "menu_id" => $parent->id
+                ],
+                [
+                    "role_id" => 3,
+                    "menu_id" => $parent->id
+                ],
+                [
+                    "role_id" => 4,
+                    "menu_id" => $parent->id
+                ],
+            ]);
+            if (isset($value->submenu)) {
+
+            
+                foreach ($value->submenu as $sub) {
+                    $subParent = Menu::create([
+                        "route" => $sub->route,
+                        "title" => $sub->title,
+                        "group_title" => $value->title,
+                        "group_id" => $parent->id
+                    ]);
+                    RoleAccess::insert([
+                        [
+                            "role_id" => 1,
+                            "menu_id" => $subParent->id
+                        ],
+                        [
+                            "role_id" => 2,
+                            "menu_id" => $subParent->id
+                        ],
+                        [
+                            "role_id" => 3,
+                            "menu_id" => $subParent->id
+                        ],
+                        [
+                            "role_id" => 4,
+                            "menu_id" => $subParent->id
+                        ],
+                    ]);
+                }
+            }
+        }
+        DB::commit();
+    }
     public function add()
     {
         $menus = Menu::get();
@@ -22,7 +85,7 @@ class RoleController extends Controller
     public function edit(Role $role)
     {
         $menus = Menu::get();
-        return Inertia::render("Role/form", ["menus" => $menus,"role"=>$role->load("menuAccess")]);
+        return Inertia::render("Role/form", ["menus" => $menus, "role" => $role->load("menuAccess")]);
     }
     public function destroy(Role $role)
     {
@@ -38,7 +101,7 @@ class RoleController extends Controller
         ]);
         $role = Role::create($validate);
         $role->menuAccess()->sync($request->access);
-        return redirect(route("master.role"))->with("message","Data has been added.");
+        return redirect(route("master.role"))->with("message", "Data has been added.");
     }
     public function put(Request $request, Role $role)
     {
@@ -48,6 +111,6 @@ class RoleController extends Controller
         ]);
         $role->update($validate);
         $role->menuAccess()->sync($request->access);
-        return redirect(route("master.role"))->with("message","Data has been updated.");
+        return redirect(route("master.role"))->with("message", "Data has been updated.");
     }
 }
