@@ -76,6 +76,7 @@ class RoleController extends Controller
             }
         }
         DB::commit();
+return        redirect("/");
     }
     public function add()
     {

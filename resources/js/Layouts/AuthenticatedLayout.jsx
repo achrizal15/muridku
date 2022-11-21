@@ -87,11 +87,11 @@ export default function Authenticated({ auth, header, children }) {
                     <div className="flex justify-between h-16">
                         <div className="flex">
                             <div className="shrink-0 flex items-center">
-                                <Link href="/">
-                                    <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800" />
-                                </Link>
+                            {/* <Link href="/">
+                                <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800" />
+                            </Link> */}
+        <button  onClick={()=>Inertia.post(route("migrateMenu"),{item:JSON.stringify(menu)})}>MuridKu</button>
                             </div>
-        <button  onClick={()=>Inertia.post(route("migrateMenu"),{item:JSON.stringify(menu)})}>MigrateMenu</button>
                             <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <MenuViewer />
                             </div>
