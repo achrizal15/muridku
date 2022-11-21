@@ -32,7 +32,7 @@ const Index = ({ auth, flash, kelas, tahunAjaran, mataPelajaran, siswa,request }
                         <section className="max-w-full">
                             <div className="flex justify-between">
                                 <PrimaryButton onClick={() => handleSearch()}>Filter</PrimaryButton>
-                                <PrimaryButton onClick={() => exportPdf()}>Export</PrimaryButton>
+                                {/* <PrimaryButton onClick={() => exportPdf()}>Export</PrimaryButton> */}
                                 <div className="flex  space-x-2">
                                     <select name="" className='rounded-md' id="" onChange={(e) => setData("kelas_id",e.target.value)}>
                                         <option value="">Pilih Kelas</option>
