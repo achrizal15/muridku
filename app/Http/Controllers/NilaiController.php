@@ -46,7 +46,7 @@ class NilaiController extends Controller
                 });
             })->get();
         $pdf = Pdf::loadView('pdf.raport', ["header" => $header, "siswa" => $siswa]);
-        return $pdf->download('nilai.pdf');
+        return $pdf->stream('nilai.pdf');
     }
     public function laporan(Request $request)
     {
