@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger("siswa_id")->nullable()->foreignId();
             $table->unsignedBigInteger("kelas_id")->nullable()->foreignId();
+            $table->unsignedBigInteger("old_kelas_id")->nullable()->foreignId();
             $table->unsignedBigInteger("tahun_ajaran_id")->nullable()->foreignId();
             $table->timestamps();
         });

@@ -13,6 +13,10 @@ class Penempatan extends Model
     {
         return $this->belongsTo(Kelas::class, "kelas_id", "id");
     }
+    public function oldKelas()
+    {
+        return $this->belongsTo(Kelas::class, "old_kelas_id", "id");
+    }
     public function siswa()
     {
         return $this->belongsTo(Siswa::class, "siswa_id", "id");

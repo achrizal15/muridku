@@ -28,7 +28,7 @@ export default function Authenticated({ auth, header, children }) {
                 { title: "Input Nilai", route: route("transaksi.input-nilai"), active: route().current("transaksi.input-nilai") },
             ]
         },
-
+        { title: "Laporan", route:route("laporan.nilai"), active: route().current('laporan.*')},
     ]
   
     const MenuViewer = () => {

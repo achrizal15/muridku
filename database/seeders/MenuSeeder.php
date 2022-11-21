@@ -17,59 +17,86 @@ class MenuSeeder extends Seeder
      */
     public function run()
     {
-        $menu = array(
-            0 =>
-            array(
-                'title' => 'Dashboard',
-                'route' => 'http://127.0.0.1:8000',
-                'active' => false,
+        $menu = array (
+            0 => 
+            array (
+              'title' => 'Dashboard',
+              'route' => 'http://127.0.0.1:8000',
+              'active' => false,
             ),
-            1 =>
-            array(
-                'title' => 'Master',
-                'route' => '#',
-                'active' => true,
-                'submenu' =>
-                array(
-                    0 =>
-                    array(
-                        'title' => 'Role',
-                        'route' => 'http://127.0.0.1:8000/master/role',
-                        'active' => false,
-                    ),
-                    1 =>
-                    array(
-                        'title' => 'User',
-                        'route' => 'http://127.0.0.1:8000/master/user',
-                        'active' => false,
-                    ),
-                    2 =>
-                    array(
-                        'title' => 'Siswa',
-                        'route' => 'http://127.0.0.1:8000/master/siswa',
-                        'active' => false,
-                    ),
-                    3 =>
-                    array(
-                        'title' => 'Kelas',
-                        'route' => 'http://127.0.0.1:8000/master/kelas',
-                        'active' => false,
-                    ),
-                    4 =>
-                    array(
-                        'title' => 'Mata Pelajaran',
-                        'route' => 'http://127.0.0.1:8000/master/mata-pelajaran',
-                        'active' => false,
-                    ),
-                    5 =>
-                    array(
-                        'title' => 'Tahun Ajaran',
-                        'route' => 'http://127.0.0.1:8000/master/tahun-ajaran',
-                        'active' => false,
-                    ),
+            1 => 
+            array (
+              'title' => 'Master',
+              'route' => '#',
+              'active' => false,
+              'submenu' => 
+              array (
+                0 => 
+                array (
+                  'title' => 'Role',
+                  'route' => 'http://127.0.0.1:8000/master/role',
+                  'active' => false,
                 ),
+                1 => 
+                array (
+                  'title' => 'User',
+                  'route' => 'http://127.0.0.1:8000/master/user',
+                  'active' => false,
+                ),
+                2 => 
+                array (
+                  'title' => 'Siswa',
+                  'route' => 'http://127.0.0.1:8000/master/siswa',
+                  'active' => false,
+                ),
+                3 => 
+                array (
+                  'title' => 'Kelas',
+                  'route' => 'http://127.0.0.1:8000/master/kelas',
+                  'active' => false,
+                ),
+                4 => 
+                array (
+                  'title' => 'Mata Pelajaran',
+                  'route' => 'http://127.0.0.1:8000/master/mata-pelajaran',
+                  'active' => false,
+                ),
+                5 => 
+                array (
+                  'title' => 'Tahun Ajaran',
+                  'route' => 'http://127.0.0.1:8000/master/tahun-ajaran',
+                  'active' => false,
+                ),
+              ),
             ),
-        );
+            2 => 
+            array (
+              'title' => 'Transaksi',
+              'route' => '#',
+              'active' => false,
+              'submenu' => 
+              array (
+                0 => 
+                array (
+                  'title' => 'Penempatan',
+                  'route' => 'http://127.0.0.1:8000/transaksi/penempatan',
+                  'active' => false,
+                ),
+                1 => 
+                array (
+                  'title' => 'Input Nilai',
+                  'route' => 'http://127.0.0.1:8000/transaksi/input-nilai',
+                  'active' => false,
+                ),
+              ),
+            ),
+            3 => 
+            array (
+              'title' => 'Laporan',
+              'route' => 'http://127.0.0.1:8000/laporan/nilai',
+              'active' => true,
+            ),
+          );
         DB::beginTransaction();
         foreach ($menu as $value) {
             $parent = Menu::create([

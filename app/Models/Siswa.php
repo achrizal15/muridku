@@ -19,6 +19,9 @@ class Siswa extends Model
     public function tahunAjaran(){
         return $this->belongsTo(TahunAjaran::class,"tahun_ajaran_id");
     }
+    public function nilai(){
+        return $this->hasOne(NilaiDetail::class,"siswa_id");
+    }
     public function getAutoNumberOptions()
     {
         return [

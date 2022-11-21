@@ -80,9 +80,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get("/penempatan", [PenempatanController::class, "index"])->name("penempatan");
         Route::get("/penempatan/add", [PenempatanController::class, "add"])->name("penempatan.add");
         Route::post("/penempatan", [PenempatanController::class, "store"])->name("penempatan.store");
-        Route::get("/penempatan/edit/{penempatan}", [PenempatanController::class, "edit"])->name("penempatan.edit");
-        Route::put("/penempatan/{penempatan}", [PenempatanController::class, "put"])->name("penempatan.put");
-        Route::delete("/penempatan/{penempatan}", [PenempatanController::class, "destroy"])->name("penempatan.delete");
+    });
+    Route::group(["prefix" => "laporan", "as" => "laporan."], function () {
+        // nilai
+        Route::get("/nilai", [NilaiController::class, "laporan"])->name("nilai");
+        Route::get("/nilai/export", [NilaiController::class, "export"])->name("nilai.export");
     });
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
